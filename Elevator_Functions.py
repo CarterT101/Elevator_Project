@@ -109,7 +109,11 @@ def going_up(person_list, ele_list, maximum_floor, deleted_list, ele_del_list, f
                     # adds key to new list to delete it from elevator list, signalling that they left the elevator
                     ele_del_list.append(m)
         for k, v in person_list.items():
-            if v[0] == current_floor and v[1] > v[0] and len(ele_list) < 6:
+            # if length of ele_list is 5, meaning the elevator is full, it should not continue with this loop
+            if len(ele_list) == 5:
+                break
+            if v[0] == current_floor and v[1] > v[0] and len(ele_list) < 5:
+
                 # adds key value pair to elevator dictionary to keep track of who is in elevator
                 ele_list[k] = v
                 # this adds the key to a new list to keep track of whom to delete from person_list.
@@ -153,10 +157,13 @@ def going_down(person_list, ele_list, maximum_floor, deleted_list, ele_del_list,
                     print("Dropping off {} on floor {}\n".format(m, n[1]))
                     time.sleep(.7)
         for k, v in person_list.items():
+            # if length of ele_list is 5, meaning the elevator is full, it should not continue with this loop
+            if len(ele_list) == 5:
+                break
             # if first value (floor they are on) is equal to the current floor
             # and the second value (floor they want to go to) is less than the floor they are currently on,
             # and the elevator isn't at max capacity, pick them up and add it to the elevator list with their values
-            if v[0] == current_floor and v[1] < v[0] and len(ele_list) < 6:
+            if v[0] == current_floor and v[1] < v[0] and len(ele_list) < 5:
                 ele_list[k] = v
                 # add index to delete list to make sure it will delete it from the original person_list to keep track
                 # of who got onto the elevator
