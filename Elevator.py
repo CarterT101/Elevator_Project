@@ -2,6 +2,7 @@ import Elevator_Functions as Ef
 
 
 # dictionary of people, with their values. first index being where they are and second index being where they want to go
+# this is the structure of what the dictionary looks like
 people_dict = {
     1: [1, 3],
     2: [2, 4],
@@ -14,3 +15,8 @@ people_dict = {
 
 Ef.start_elevator()
 
+
+# POSSIBLE IDEAS:
+# CREATE EARTHQUAKE SCENARIO
+# CREATE BROKEN ELEVATOR SCENARIO
+# INPUT WEIGHT LIMIT INTO FUNCTION
