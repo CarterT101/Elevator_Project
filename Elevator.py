@@ -12,7 +12,6 @@ people_dict = {
     6: [5, 3]
 }
 
-
 Ef.start_elevator()
 
 

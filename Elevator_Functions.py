@@ -36,12 +36,13 @@ def start_elevator():
         pass
     print("")
     # for each key value pair, print a string
-    for i, k in person_list.items():
-        print("Person: {}".format(i) + "\tCurrent Floor: {}".format(k[0]) + "\tDesired Floor: {}".format(k[1]))
+    for k, v in person_list.items():
+        print("Person: {}".format(k) + "\tCurrent Floor: {}".format(v[0]) + "\tDesired Floor: {}".format(v[1]))
     print("")
     # these lines of code find the max value the elevator needs to travel to.
-    temp_max_floor = list([m, n] for m, n in person_list.values())
-    max_floor = set(item for sublist in temp_max_floor for item in sublist)
+    # it does this by making a new list for every item and other item in person_list.values() which gives a list,
+    # and then finds the max in the list.
+    max_floor = list(item for sublist in person_list.values() for item in sublist)
     # grabs original length of person_list to keep track of when to stop the program
     origin_len = len(person_list)
     # input all parameters and start program
@@ -51,6 +52,8 @@ def start_elevator():
 # end, which will always be six in this function as there are only 5 floors.
 def random_floor(n, end, start=1):  # n being the number it can't be
     return [*range(start, n), *range(n+1, end)]  # makes a list within a range and a restriction
+    # the '*' unpacks an iterable, so each element is passed as separate argument rather than function
+    # receiving the iterable object as single argument
 
 # creates a variable amount of people depending on user input, creates their values, and returns the dictionary
 def create_people(person_list, n=10):
@@ -103,6 +106,7 @@ def going_up(person_list, ele_list, maximum_floor, deleted_list, ele_del_list, f
     for current_floor in range(1, max(maximum_floor) + 1):
         if len(ele_list) > 0:
             for m, n in ele_list.items():
+                # checks the second value in dictionary (floor they want to goto)
                 if n[1] == current_floor:
                     print("Dropping off {} on floor {}\n".format(m, n[1]))
                     time.sleep(.7)
@@ -123,7 +127,10 @@ def going_up(person_list, ele_list, maximum_floor, deleted_list, ele_del_list, f
                 time.sleep(.7)
 
     # for each item in del_list, clear the saved index from person_list, so we know who got picked up already
-    # and then clear list for next use. same goes for ele_del_list
+    # and then clear list for next use. same goes for ele_del_list, if we didn't clear the list it would try to delete
+    # the same person's key index next time which can't happen as it is already gone.
+    # we add the ele_del_list item to the floor_list (floor list is a list of people who got dropped off, so they have
+    # been picked up and dropped off), to keep track of everyone who got off, so we know when to stop the elevator.
     for item in deleted_list:
         del person_list[item]
     deleted_list.clear()
