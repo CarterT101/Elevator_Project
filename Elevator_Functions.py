@@ -64,7 +64,7 @@ def create_people(person_list, n=10):
         # replaces temp number with another random number that is NOT the floor they are currently on
 
 def edit_people(person_list):
-    # keeps track of index, if user every enters a wrong value, it will restart,
+    # keeps track of index, if user ever enters a wrong value, it will restart,
     # or if they ever want to stop, they can just hit 'enter'
     i = 1
     while i < len(person_list)+1:
